@@ -1,15 +1,13 @@
 name: Second Workflow
-on: 
-  push:
-  workflow_dispatch:
+on:  workflow_dispatch
 jobs:
   hello-job:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu 26
     steps:
       - name: Welcome
         run: echo "Welcome to second workflow in github actions"
   bye-job:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu 26
     steps:
       - name: Goodbye
         run: echo "Goodbye from second workflow in github actions"
