@@ -1,36 +1,43 @@
-
 name: Jobs Test
-
 on:
   workflow_run:
-    workflows: ["First Workflow"]
+    workflows: [First Workflow]
     types:
       - completed
-
 jobs:
-  job1:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Step 1
-        run: echo "This is step 1 of job 1"
-      - name: Step 2
-        run: echo "This is step 2 of job 1"
+    validate-html:
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        runs-on: Ubuntu-latest
+       
+        steps:
+        - name: get-repo-code
+          uses: actions/checkout@v4
 
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-      - name: Step 1
-        run: echo "This is step 1 of job 2"
-      - name: Step 2
-        run: echo "This is step 2 of job 2"
+        - name: validate html file
+          run: test -f index.html
 
-  job3:
-    needs: [job1, job2]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Step 1
-        run: echo "This is step 1 of job 3"
-      - name: Step 2
-        run: echo "This is step 2 of job 3"
+    validate-js:
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        runs-on: Ubuntu-latest
+
+        steps:
+        - name: get-repo-code
+          uses: actions/checkout@v4
+
+        - name: validate js file
+          run: test -f script.js
+
+    validate-code:
+        needs: [validate-html, validate-js]
+        runs-on: Ubuntu-latest
+
+        steps:
+        - name: get-repo-code
+          uses: actions/checkout@v4
+
+        - name: validate js code
+          run: node --check script.js
+        
+        - name: validate html code
+          run: npx htmlhint index.html
+            
