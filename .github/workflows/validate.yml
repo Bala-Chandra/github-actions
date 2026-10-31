@@ -1,0 +1,13 @@
+name: Validate files
+on: push
+jobs:
+  validate-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: get-repo-code
+        uses: actions/checkout@v4
+      - name: validate html file
+        run: test -f index.html || (echo "index.html file is missing" && exit 1)
+      - name: validate js file
+        run: test -f script.js || (echo "script.js file is missing" && exit 1)
