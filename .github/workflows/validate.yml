@@ -6,7 +6,7 @@ jobs:
 
     steps:
       - name: get-repo-code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: validate html file
         run: test -f index.html || (echo "index.html file is missing" && exit 1)
       - name: validate js file
