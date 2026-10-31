@@ -2,7 +2,7 @@ name: Validate files
 on: workflow_dispatch
 jobs:
   validate-files:
-    runs-on: ubuntu 26
+    runs-on: ubuntu-latest
 
     steps:
       - name: get-repo-code
