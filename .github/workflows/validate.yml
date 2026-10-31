@@ -11,3 +11,5 @@ jobs:
         run: test -f index.html || (echo "index.html file is missing" && exit 1)
       - name: validate js file
         run: test -f script.js || (echo "script.js file is missing" && exit 1)
+      - name: validate js code
+        run: node --check script.js || (echo "script.js code is invalid" && exit 1)
